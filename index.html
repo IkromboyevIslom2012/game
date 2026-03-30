@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Reaction Game ⚡</h1>
+
+<button onclick="startGame()">Start</button>
+
+<div id="box">Kut...</div>
+
+<h2 id="result"></h2>
+<script>
+let startTime, endTime;
+let waiting = false;
+
+function startGame() {
+    document.getElementById("result").textContent = "";
+    const box = document.getElementById("box");
+    box.style.background = "red";
+    box.textContent = "Kut...";
+
+    waiting = true;
+
+    setTimeout(() => {
+        box.style.background = "green";
+        box.textContent = "BOS!";
+        startTime = new Date().getTime();
+        waiting = false;
+    }, Math.random() * 3000 + 2000);
+}
+
+document.getElementById("box").onclick = function() {
+    if (waiting) {
+        document.getElementById("result").textContent = "❌ Erta bosding!";
+        return;
+    }
+
+    if (!startTime) return;
+
+    endTime = new Date().getTime();
+    let reaction = endTime - startTime;
+
+    document.getElementById("result").textContent =
+        "⏱ " + reaction + " ms";
+};
+</script>
+</body>
+</html>
